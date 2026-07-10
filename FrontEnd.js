@@ -54,6 +54,10 @@ const angleInput = document.getElementById('angleInput')
 const spinInput = document.getElementById('spinInput')
 const sendBallButton = document.getElementById('sendBall')
 
+function updateStatus(message) {
+    statusBox.innerText = message;
+}
+
 function sendData(){
     const speed = parseFloat(speedInput.value)
     const angle = parseFloat(angleInput.value)
@@ -74,31 +78,36 @@ function sendData(){
     
     .then(response => response.json()) // Parse the JSON response from Python
     .then(data => {
-        // Output the final result to the console
-        console.log('Success! The server calculated:', data.result);
+        
+        updateStatus('Data calculated successfully!');
+        const xData = data.x_result
+        const yData = data.y_result
+
+
+
+
+
+        //use ploty to plot the data
+        const trace = {
+            x: xData,
+            y: yData,
+            mode: 'lines',
+            type: 'scatter',
+            name: 'Golf ball trajectory'
+        };
+
+        const layout = {
+            title: 'Golf Ball Trajectory',
+            xaxis: { title: 'Horizontal Distance (m)' },
+            yaxis: { title: 'Height (m)' }
+        };
+
+        Plotly.newPlot('trajectoryImageContainer', [trace], layout);
+        updateStatus('Trajectory plotted successfully!');
     })
     .catch((error) => {
-        console.error('Error communicating with the server:', error);
+        
+        updateStatus('Error calculating data.');
     })
 }
 
-
-
-// Send the request
-fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json' // Telling the server to expect JSON
-    },
-    body: JSON.stringify(dataPacket)
-})
-.then(response => response.json()) // Parse the JSON response from Python
-.then(data => {
-    // Output the final result to the console
-    console.log('Success! The server calculated:', data.result);
-})
-.catch((error) => {
-    console.error('Error communicating with the server:', error);
-})
-
-sendBallButton.addEventListener('click', sendData);
