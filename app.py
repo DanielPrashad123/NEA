@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import numpy as np
 
 app = Flask(__name__)
 # This allows your JS file to talk to the Flask API without security blockages

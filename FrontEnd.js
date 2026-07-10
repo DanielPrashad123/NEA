@@ -77,6 +77,11 @@ function sendData(){
 
     
     .then(response => response.json()) // Parse the JSON response from Python
+
+    .catch((error) => {
+        
+        updateStatus('Error calculating data.',error);
+    })
     .then(data => {
         
         updateStatus('Data calculated successfully!');
@@ -105,9 +110,10 @@ function sendData(){
         Plotly.newPlot('trajectoryImageContainer', [trace], layout);
         updateStatus('Trajectory plotted successfully!');
     })
-    .catch((error) => {
+    /*.catch((error) => {
         
-        updateStatus('Error calculating data.');
-    })
+        updateStatus('Error calculating data.',error);
+    })*/
 }
 
+sendBallButton.addEventListener('click', sendData);
