@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEA Physics Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="FrontEnd.js" defer></script>
+</head>
+<body>
+    <div id="homePage" class="page">
+        <header>
+            <h1>NEA Physics Simulator</h1>
+            <p class="subtitle">Golf ball simulation model</p>
+        </header>
+        <main>
+            <button id="goToSimulation" onclick="goToSimulation()">Go to simulation page</button>
+            <br>
+            <button id="goToEducational" onclick="goToEducational()">Go to educational pages</button>
+        </main>
+    </div>
+
+    <div id="simulationPage" class="page" >
+        <header>
+            <h1>Physics engine</h1>
+            <p class="subtitle">Golf ball simulation model</p>
+        </header>
+        
+        <main>
+            <div class="simulationLayout">
+                <section class="panel inputPanel">
+                    <h2>Launch Parameters</h2>
+                    
+                    <div class="inputDomain">
+                        <div class="userInputValues">
+                            <label for="speedInput">Takeoff Speed (mi/h)</label>
+                            <input id="speedInput" type="number" step="0.01" min="0" placeholder="e.g., 150.00" />
+                        </div>
+                        <div class="userInputValues">
+                            <label for="angleInput">Launch Angle (°)</label>
+                            <input id="angleInput" type="number" step="0.01" min="0" placeholder="e.g., 15.00" />
+                        </div>
+                        <div class="userInputValues">
+                            <label for="spinInput">Spin Rate (RPM)</label>
+                            <input id="spinInput" type="number" step="100" placeholder="e.g., 2500" />
+                        </div>
+                    </div>
+                    <button id="sendBall" class="primaryBtn">Calculate Trajectory</button>
+                    
+                </section>
+                
+                <section class="panel outputPanel">
+                    <h2>Projection Output</h2>
+                    <div id="trajectoryImageContainer">
+                        <p class="placeholderText">[ Trajectory Image Output ]</p>
+                    </div>
+                    
+                    <h2 class="consoleHeading">Server Console</h2>
+                    <div class="consoleWindow">
+                        <p id="statusBox">System ready. Waiting for user input...</p>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="navigationButtons">
+                <button id="goToHomepage" onclick="goToHomepage()">Go to Home</button>
+                <button id="goToSummary" onclick="goToSummary()">Go to Summary</button>
+                <button id="goToEducational" onclick="goToEducational()">Go to educational pages</button>
+            </div>
+        </main>
+    </div>
+
+    <div id="summaryPage" class="page" >
+        <main>
+            <h2>Summary Data</h2>
+            <button id="goToHomepage" onclick="goToHomepage()">Go to Home</button>
+            <button id="goToSimulation" onclick="goToSimulation()">Go back to simulation page</button>
+        </main>
+    </div>
+
+    <div id="educationPage" class="page" >
+        <header>
+            <h1>Educational Resources</h1>
+            <p class="subtitle">Learn about the physics behind golf ball trajectories</p>
+        </header>
+        <main>
+            <section id="educationalPanel">
+                <h2>Physics Concepts</h2>
+                <p>Review the fundamental principles that govern the trajectory of a golf ball in flight.</p>
+                
+                <div class="educationalGrid">
+                    <div class="scrollBox">
+                        <h3>1. Projectile Motion</h3>
+                        <p></p>
+                        <p><em>Scroll for more...</em></p>
+                        <br><br><br><br><br>
+                        <p> </p>
+                    </div>
+                    
+                    <div class="scrollBox">
+                        <h3>2. Aerodynamic Drag</h3>
+                        <p></p>
+                        <p><em>Scroll for more...</em></p>
+                        <br><br><br><br><br>
+                        <p></p>
+                    </div>
+                    
+                    <div class="scrollBox">
+                        <h3>3. The Magnus Effect</h3>
+                        <p></p>
+                        <p><em>Scroll for more...</em></p>
+                        <br><br><br><br><br>
+                        <p></p>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="navigationButtons">
+                <button id="goToHomepage" onclick="goToHomepage()">Go to Home</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
