@@ -53,6 +53,7 @@ const speedInput = document.getElementById('speedInput')
 const angleInput = document.getElementById('angleInput')
 const spinInput = document.getElementById('spinInput')
 const sendBallButton = document.getElementById('sendBall')
+const trajectoryImageContainer = document.getElementById('trajectoryImageContainer')
 
 function updateStatus(message) {
     statusBox.innerText = message;
@@ -83,37 +84,45 @@ function sendData(){
         updateStatus('Error calculating data.',error);
     })
     .then(data => {
-        
+        if (!data || !data.trajectory_png) {
+        updateStatus('No trajectory data received from server.');
+        return;
+        }
+
         updateStatus('Data calculated successfully!');
         const xData = data.x_result
         const yData = data.y_result
 
+        const pngData = data.trajectory_png;
 
-
-
-
-        //use ploty to plot the data
-        const trace = {
-            x: xData,
-            y: yData,
-            mode: 'lines',
-            type: 'scatter',
-            name: 'Golf ball trajectory'
-        };
-
-        const layout = {
-            title: 'Golf Ball Trajectory',
-            xaxis: { title: 'Horizontal Distance (m)' },
-            yaxis: { title: 'Height (m)' }
-        };
-
-        Plotly.newPlot('trajectoryImageContainer', [trace], layout);
+        trajectoryImageContainer.innerHTML = '';
+        const img = document.createElement('img');
+        img.alt = 'Golf ball trajectory';
+        img.src = `data:image/png;base64,${pngData}`;
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        trajectoryImageContainer.appendChild(img);
         updateStatus('Trajectory plotted successfully!');
+
+
+
+        /*
+        updateStatus('Data calculated successfully!');
+        const xData = data.x_result
+        const yData = data.y_result
+        const pngData = data.trajectory_png;
+
+        trajectoryImageContainer.innerHTML = '';
+        const img = document.createElement('img');
+        img.alt = 'Golf ball trajectory';
+        img.src = `data:image/png;base64,${pngData}`;
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        trajectoryImageContainer.appendChild(img);
+        updateStatus('Trajectory plotted successfully!');
+        */
     })
-    /*.catch((error) => {
-        
-        updateStatus('Error calculating data.',error);
-    })*/
+    
 }
 
 sendBallButton.addEventListener('click', sendData);

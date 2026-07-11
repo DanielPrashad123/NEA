@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NEA Display</title>
+    <script src="FrontEnd.js" defer></script>
+</head>
+<body>
+    <h1>NEA Display</h1>
+    <p>confirmation display page</p>
+    
+    <hr>
+    <h2>Launch Parameters</h2>
+    <label for="speed-input">Speed of the ball:</label>
+    <input id="speed-input" type="number" step="0.01" min="0" placeholder="Enter speed" />
+    <br />
+    <label for="angle-input">Angle of takeoff:</label>
+    <input id="angle-input" type="number" step="0.01" min="0" placeholder="Enter angle" />
+    <br />
+    <label for="spin-input">Spin of the ball:</label>
+    <input id="spin-input" type="number" step="0.01" placeholder="Enter spin" />
+    <br />
+    <button id="send-ball-button">Send Ball</button>
+    
+    <hr>
+    <h2>Backend Server Status:</h2>
+    <p id="status-box">
+        Waiting for JavaScript to send object
+    </p>
+</body>
+</html>

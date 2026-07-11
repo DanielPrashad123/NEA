@@ -1,6 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import io
+import base64
 
 app = Flask(__name__)
 # This allows your JS file to talk to the Flask API without security blockages
@@ -139,8 +144,25 @@ def projection_numbers():
 
     
     # Send the result back as a JSON response
-    return jsonify({'x_result': ball_xArray
-                    ,'y_result':ball_yArray})
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    ax.plot(ball_xArray, ball_yArray, color='blue', linewidth=2)
+    ax.set_title('Golf Ball Trajectory')
+    ax.set_xlabel('Horizontal Distance (m)')
+    ax.set_ylabel('Height (m)')
+    ax.grid(True, linestyle='--', alpha=0.4)
+    plt.tight_layout()
+
+    buffer = io.BytesIO()
+    fig.savefig(buffer, format='png')
+    plt.close(fig)
+    buffer.seek(0)
+    image_base64 = base64.b64encode(buffer.getvalue()).decode('ascii')
+
+    return jsonify({
+        'x_result': ball_xArray,
+        'y_result': ball_yArray,
+        'trajectory_png': image_base64
+    })
 
 if __name__ == '__main__':
     # Run the server on port 5000
