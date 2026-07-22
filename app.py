@@ -155,11 +155,11 @@ def projection_numbers():
     fig.savefig(buffer, format='png')
     plt.close(fig)
     buffer.seek(0)
-    image_base64 = base64.b64encode(buffer.getvalue()).decode('ascii')
+    image_trajectory = base64.b64encode(buffer.getvalue()).decode('ascii')
 
-    # Send the result back as a JSON response
+    # Send the result back via JSON
     return jsonify({
-        'trajectory_png': image_base64
+        'trajectory_png': image_trajectory
     })
 
 if __name__ == '__main__':

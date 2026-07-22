@@ -28,12 +28,7 @@ h2 {
     margin-bottom: 15px;
 }
 
-h3 {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #111;
-    padding-bottom: 5px;
-}
+
 
 p {
     margin-bottom: 15px;
@@ -178,11 +173,26 @@ button:hover {
 
 .scrollBox {
     flex: 1;
-    height: 300px;
+    height: 350px;
     overflow-y: auto;
     background-color: #fff;
     border: 1px solid #111;
     padding: 15px;
+}
+.titleEducationBox {
+    
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    height: 80px;
+    display: flex;
+    border-bottom: 1px solid #111;
+}
+h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    text-align: center;
+    padding-bottom: 5px;
 }
 
 
