@@ -92,7 +92,6 @@ function sendData(){
         updateStatus('Data calculated successfully!');
         const xData = data.x_result
         const yData = data.y_result
-
         const pngData = data.trajectory_png;
 
         trajectoryImageContainer.innerHTML = '';
@@ -103,24 +102,14 @@ function sendData(){
         img.style.height = 'auto';
         trajectoryImageContainer.appendChild(img);
         updateStatus('Trajectory plotted successfully!');
-
-
-
-        /*
-        updateStatus('Data calculated successfully!');
-        const xData = data.x_result
-        const yData = data.y_result
-        const pngData = data.trajectory_png;
-
-        trajectoryImageContainer.innerHTML = '';
-        const img = document.createElement('img');
-        img.alt = 'Golf ball trajectory';
-        img.src = `data:image/png;base64,${pngData}`;
-        img.style.maxWidth = '100%';
-        img.style.height = 'auto';
-        trajectoryImageContainer.appendChild(img);
-        updateStatus('Trajectory plotted successfully!');
-        */
+        
+        
+        
+        
+        document.getElementById('outDistance').innerText = data.distance;
+        document.getElementById('outApex').innerText = data.apex;
+        document.getElementById('outFeedback').innerText = data.feedback;
+        updateStatus('Data calculated successfully and summary data generated successfully');
     })
     
 }

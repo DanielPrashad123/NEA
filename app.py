@@ -138,12 +138,33 @@ def projection_numbers():
         ball_spin *= spinDecayRate  # apply spin decay for the next RK4 loop
     
     # RK4 CALCULATIONS COMPLETE 
-    
 
 
+    #variables for summary page
+    apexHeight= max(ball_yArray)
+    totaldistance=(ball_xArray[-1]+ball_xArray[-2])/2
 
-    
-    
+    angleFeedback=[]
+    if takeoff_angle>15:
+        angleFeedback.append("The launch angle is too high, consider lowering it for more distance.")
+    elif takeoff_angle<10:
+        angleFeedback.append("The launch angle is too low, consider increasing it for more distance.")
+    else:
+        angleFeedback.append("The launch angle is good for distance.")
+
+    spinFeedback=[]
+    rawSpin=incoming_data['spin']
+    if rawSpin>3000:
+        spinFeedback.append("The spin rate is too high, consider lowering it for more distance.")
+    elif rawSpin<1800:
+        spinFeedback.append("The spin rate is too low, consider increasing it for more distance.")
+    else:
+        spinFeedback.append("The spin rate is good for distance.")
+
+    angleFeedbackString=" ".join(angleFeedback)
+    spinFeedbackString=" ".join(spinFeedback)
+
+
     fig, ax = plt.subplots(figsize=(8, 4.5))
     ax.plot(ball_xArray, ball_yArray, color='blue', linewidth=2)
     ax.set_title('Golf Ball Trajectory')
@@ -159,7 +180,11 @@ def projection_numbers():
 
     # Send the result back via JSON
     return jsonify({
-        'trajectory_png': image_trajectory
+        'trajectory_png': image_trajectory,
+        'apex': round(apexHeight, 2),
+        'totaldistance': round(totaldistance, 2),
+        'angleFeedback': angleFeedbackString,
+        'spinFeedback': spinFeedbackString
     })
 
 if __name__ == '__main__':
