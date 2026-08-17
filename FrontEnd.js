@@ -88,12 +88,17 @@ function sendData(){
         updateStatus('No trajectory data received from server.');
         return;
         }
+       
 
-        updateStatus('Data calculated successfully!');
-        const xData = data.x_result
-        const yData = data.y_result
+        // extract data from json responce
         const pngData = data.trajectory_png;
+        const apexData = data.apex;
+        const distData = data.distance;
+        const angleFeedback = data.angleFeedback; 
+        const spinFeedback = data.spinFeedback;   
 
+        // Setup the image for the simulation Page
+        const trajectoryImageContainer = document.getElementById('trajectoryImageContainer');
         trajectoryImageContainer.innerHTML = '';
         const img = document.createElement('img');
         img.alt = 'Golf ball trajectory';
@@ -101,16 +106,21 @@ function sendData(){
         img.style.maxWidth = '100%';
         img.style.height = 'auto';
         trajectoryImageContainer.appendChild(img);
-        updateStatus('Trajectory plotted successfully!');
         
+        // setup image for the summary Page using cloneNode
+        const summaryImageContainer = document.getElementById('summaryImageContainer');
+        summaryImageContainer.innerHTML = '';
+        const imgClone = img.cloneNode(true); // photocopies image element
+        summaryImageContainer.appendChild(imgClone);
+
+        // update the text boxes in summary page 
+        document.getElementById('outDistance').innerText = distData;
+        document.getElementById('outApex').innerText = apexData;
+        document.getElementById('angleOutFeedback').innerText = angleFeedback;
+        document.getElementById('spinOutFeedback').innerText = spinFeedback;
         
-        
-        
-        document.getElementById('outDistance').innerText = data.distance;
-        document.getElementById('outApex').innerText = data.apex;
-        document.getElementById('outFeedback').innerText = data.feedback;
         updateStatus('Data calculated successfully and summary data generated successfully');
-    })
+        })
     
 }
 

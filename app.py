@@ -182,7 +182,7 @@ def projection_numbers():
     return jsonify({
         'trajectory_png': image_trajectory,
         'apex': round(apexHeight, 2),
-        'totaldistance': round(totaldistance, 2),
+        'distance': round(totaldistance, 2),
         'angleFeedback': angleFeedbackString,
         'spinFeedback': spinFeedbackString
     })
