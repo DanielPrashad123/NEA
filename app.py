@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import io
 import base64
 
+
 app = Flask(__name__)
 # This allows your JS file to talk to the Flask API without security blockages
 CORS(app) 
@@ -26,16 +27,28 @@ spinDecayRate = 0.998 # decreases the spin rate by 0.2%
 def projection_numbers():
     
 
-    # Receive the JSON data sent by the JavaScript client
+    # Receive the JSON data sent by javascrpt
     incoming_data = request.get_json()
-    
+    #type validation
+    try:
+        mph_speed = float(incoming_data['speed'])
+        takeoff_angle = float(incoming_data['angle'])
+        raw_spin = float(incoming_data['spin'])
+    except (ValueError, TypeError, KeyError):
+        return jsonify({
+            'error': 'Invalid input type. Please ensure speed, angle, and spin are numeric values.'
+        }), 400
 
+    #boundry validation
+    if takeoff_angle < 0 or takeoff_angle > 90:
+        return jsonify({'error': 'Invalid angle. Please provide an angle between 0 and 90 degrees.'}), 400
+    if mph_speed < 0:
+        return jsonify({'error': 'Invalid speed. Please provide a non-negative speed.'}), 400
 
-    # define starting values for golf ball using data from frontend
-    mph_speed = incoming_data['speed']
+    #conversions
     takeoff_speed = mph_speed * 0.44704  # convert mph to m/s
-    takeoff_angle = incoming_data['angle']
-    takeoff_spin = incoming_data['spin']/60
+    takeoff_spin = raw_spin / 60
+    
     ball_xspeed = takeoff_speed * np.cos(np.radians(takeoff_angle))
     ball_yspeed = takeoff_speed * np.sin(np.radians(takeoff_angle))
     ball_xpos = 0
@@ -43,8 +56,8 @@ def projection_numbers():
     ball_ypos = 0
     ball_yArray = [ball_ypos]
     ball_spin = takeoff_spin
-    
-    # accellerate functions to reduce repeated code in the main loop 
+
+
     def calculateForceX(current_xspeed, current_yspeed,current_spin):
         # calculates forces on the ball, in the x direction there will only be one force
         

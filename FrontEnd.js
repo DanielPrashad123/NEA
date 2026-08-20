@@ -84,6 +84,13 @@ function sendData(){
         updateStatus('Error calculating data.',error);
     })
     .then(data => {
+        
+        const errorMessage = data.error; 
+        if (errorMessage) {
+            updateStatus(`Error from server: ${errorMessage}`);
+            return;
+        }
+
         if (!data || !data.trajectory_png) {
         updateStatus('No trajectory data received from server.');
         return;
@@ -96,7 +103,10 @@ function sendData(){
         const distData = data.distance;
         const angleFeedback = data.angleFeedback; 
         const spinFeedback = data.spinFeedback;   
+        
+        
 
+        
         // Setup the image for the simulation Page
         const trajectoryImageContainer = document.getElementById('trajectoryImageContainer');
         trajectoryImageContainer.innerHTML = '';
@@ -110,7 +120,7 @@ function sendData(){
         // setup image for the summary Page using cloneNode
         const summaryImageContainer = document.getElementById('summaryImageContainer');
         summaryImageContainer.innerHTML = '';
-        const imgClone = img.cloneNode(true); // photocopies image element
+        const imgClone = img.cloneNode(true); // copies image element
         summaryImageContainer.appendChild(imgClone);
 
         // update the text boxes in summary page 
