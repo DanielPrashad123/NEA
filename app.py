@@ -16,10 +16,10 @@ CORS(app)
 # Global Constants
 mass = 0.05 
 drag_coefficient = 0.00001 
-gravityconst = -9.8
+gravity_const = -9.8
 dt = 0.01  # time step (10 milliseconds)
 magnus_coefficient = 0.00025  # Magnus effect coefficient
-spinDecayRate = 0.998 # decreases the spin rate by 0.2% 
+spin_decay_rate = 0.998 # decreases the spin rate by 0.2% 
 
 
 
@@ -73,7 +73,7 @@ def projection_numbers():
         
         # calculates forces on the ball, in the y direction there will be two forces
         # FIX: Gravity is an acceleration, so Force = Mass * Gravity
-        gravity_force = mass * gravityconst
+        gravity_force = mass * gravity_const
         
         # abs() is used to take into consideration the direction of speed so air resistance opposes motion
         air_resistance = drag_coefficient * current_yspeed * abs(current_yspeed)
@@ -148,14 +148,14 @@ def projection_numbers():
         # record the new coordinates for graphing
         ball_xArray.append(ball_xpos)
         ball_yArray.append(ball_ypos)
-        ball_spin *= spinDecayRate  # apply spin decay for the next RK4 loop
+        ball_spin *= spin_decay_rate  # apply spin decay for the next RK4 loop
     
     # RK4 CALCULATIONS COMPLETE 
 
 
     #variables for summary page
-    apexHeight= max(ball_yArray)
-    totaldistance=(ball_xArray[-1]+ball_xArray[-2])/2
+    apex_height= max(ball_yArray)
+    total_distance=(ball_xArray[-1]+ball_xArray[-2])/2
 
     angleFeedback=[]
     if takeoff_angle>15:
@@ -174,8 +174,8 @@ def projection_numbers():
     else:
         spinFeedback.append("The spin rate is good for distance.")
 
-    angleFeedbackString=" ".join(angleFeedback)
-    spinFeedbackString=" ".join(spinFeedback)
+    angle_feedback_string=" ".join(angleFeedback)
+    spin_feedback_string=" ".join(spinFeedback)
 
 
     fig, ax = plt.subplots(figsize=(8, 4.5))
@@ -194,10 +194,10 @@ def projection_numbers():
     # Send the result back via JSON
     return jsonify({
         'trajectory_png': image_trajectory,
-        'apex': round(apexHeight, 2),
-        'distance': round(totaldistance, 2),
-        'angleFeedback': angleFeedbackString,
-        'spinFeedback': spinFeedbackString
+        'apex': round(apex_height, 2),
+        'distance': round(total_distance, 2),
+        'angleFeedback': angle_feedback_string,
+        'spinFeedback': spin_feedback_string
     })
 
 if __name__ == '__main__':
