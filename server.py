@@ -43,9 +43,9 @@ class Golf_ball_simulation:
         self.ball_yspeed = self.takeoff_speed * np.sin(np.radians(takeoff_angle))
         
         self.ball_xpos = 0
-        self.ball_xArray = [self.ball_xpos]
+        self.ball_x_array = [self.ball_xpos]
         self.ball_ypos = 0
-        self.ball_yArray = [self.ball_ypos]
+        self.ball_y_array = [self.ball_ypos]
         self.ball_spin = self.takeoff_spin
 
     def calculate_force_x(self, current_xspeed, current_yspeed, current_spin):
@@ -150,8 +150,8 @@ class Golf_ball_simulation:
             self.ball_ypos += (k1_changeYpos + 2*k2_changeYpos + 2*k3_changeYpos + k4_changeYpos) / 6
 
             # append the new positon of the ball to the arrays for plotting later. 
-            self.ball_xArray.append(self.ball_xpos)
-            self.ball_yArray.append(self.ball_ypos)
+            self.ball_x_array.append(self.ball_xpos)
+            self.ball_y_array.append(self.ball_ypos)
 
             # update spin rate to simualate spin decay over time.
             self.ball_spin *= self.spin_decay_rate
@@ -159,20 +159,20 @@ class Golf_ball_simulation:
     def get_apex(self):
         """returns the maximum height of the ball during its flight by finding the largest value in the ball_yArray.
         """
-        return max(self.ball_yArray)
+        return max(self.ball_y_array)
 
     def get_distance(self):
         """returns the horizontal distance of the ball when it hits the ground by taking the average of the last two values in the ball_xArray.
         
         see 2.2.7 -cycle 7 (post development thoughts to see how this coule be improved upon)
         """
-        return (self.ball_xArray[-1] + self.ball_xArray[-2]) / 2
+        return (self.ball_x_array[-1] + self.ball_x_array[-2]) / 2
 
     def generate_plot(self):
         """generates a plot of the ball's trajectory using matplotlib and returns it as a base64 encoded PNG image.
         """
         fig, ax = plt.subplots(figsize=(8, 4.5))
-        ax.plot(self.ball_xArray, self.ball_yArray, color='blue', linewidth=2)
+        ax.plot(self.ball_x_array, self.ball_y_array, color='blue', linewidth=2)
         ax.set_title('Golf Ball Trajectory')
         ax.set_xlabel('Horizontal Distance (m)')
         ax.set_ylabel('Height (m)')
