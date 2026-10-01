@@ -88,8 +88,8 @@ function sendData(){
     
     .then(data => {
         //this block handles the data that is returned from the backend
-        //this error messsage validation is the check if the backend has returned an error mesasge back to this file 
-        //this adds another layer of error handling to the api link between the 2 files and also help give the user feedback on any issues,and again will also help in debugging of developers if there is an issue.
+        //this error message validation is the check if the backend has returned an error message back to this file 
+        //this adds another layer of error handling to the api link between the 2 files and also help give the user feedback on any issues and again will also help in debugging of developers if there is an issue.
         const errorMessage = data.error; 
         if (errorMessage) {
             updateStatus(`Error from server: ${errorMessage}`);
@@ -138,7 +138,7 @@ function sendData(){
         updateStatus('Data calculated successfully and summary data generated successfully');
         })
     .catch((error) => {
-        //this catch block will grab any errrors that occur during the fetch requenst and display them in the status box 
+        //this catch block will grab any errors that occur during the fetch requenst and display them in the status box 
         //this is to give the user feedback as to what the problem might be and helps any developers to debug the code if there is an issue. 
         //this is important as it ensures that the user is not presented with the wrong data if there is an issue with the backend or the data ebign sent/received.
         //it is located after the .then blocks specifically to catch any errors that occur during the fetch request and not during the processing of data in the .then blocks.

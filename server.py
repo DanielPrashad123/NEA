@@ -86,15 +86,15 @@ class Golf_ball_simulation:
         return gravity_force - air_resistance + Ymagnus_force
 
     def run_RK4(self):
-        """this function impliments the 4th order Runge-Kutta numerical methods to simulat the trajectory of the golf ball.
+        """this function implements the 4th order Runge-Kutta numerical methods to simulate the trajectory of the golf ball.
         it uses the current position, its speed, and the magnus functions above to calculate the next position of the ball 
         in discrete time steps untill the ball hits the ground (ypos<0).
         
         it does this process by calculating 4 "guesses" of the next position , and then taking a weighted average of those guesses to 
-        determine the final position of the ball at the next time step. each time step is a small incriment of time (dt) which is set to 0.1 seconds.
+        determine the final position of the ball at the next time step. each time step is a small increment of time (dt) which is set to 0.1 seconds.
         
         other processes of this function :
-            it updates the ball's psin rate at the end of every time step by multiplying it by a decay rate since real golf balls lose spin over their flight.
+            it updates the ball's spin rate at the end of every time step by multiplying it by a decay rate since real golf balls lose spin over their flight.
             it appends the new position of the ball at the end of every time step to the ball_xArray and ball_yArray which are used to plot the trajectory of the ball at the end of the simulation.
         
             
